@@ -1,0 +1,92 @@
+name: Render PDF preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - public/rules.pdf
+      - .github/workflows/render-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-pdf-preview
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install renderer
+        run: pip install --disable-pip-version-check pymupdf pillow
+
+      - name: Render PDF to JPEG pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import shutil
+          import fitz
+          from PIL import Image
+
+          pdf_path = Path('public/rules.pdf')
+          out_dir = Path('public/rendered')
+
+          if out_dir.exists():
+              shutil.rmtree(out_dir)
+          out_dir.mkdir(parents=True, exist_ok=True)
+
+          doc = fitz.open(pdf_path)
+          pages = []
+          matrix = fitz.Matrix(2.5, 2.5)  # about 180 dpi
+
+          for index, page in enumerate(doc, start=1):
+              pix = page.get_pixmap(matrix=matrix, alpha=False)
+              image = Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
+              filename = f'page-{index:03d}.jpg'
+              image.save(
+                  out_dir / filename,
+                  'JPEG',
+                  quality=90,
+                  optimize=True,
+                  progressive=True,
+                  subsampling=0,
+              )
+              pages.append({
+                  'page': index,
+                  'file': filename,
+                  'width': pix.width,
+                  'height': pix.height,
+              })
+
+          manifest = {
+              'pageCount': len(pages),
+              'pages': pages,
+          }
+          (out_dir / 'manifest.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, separators=(',', ':')),
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Commit rendered preview
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/rendered
+          if git diff --cached --quiet; then
+            echo "Preview is already up to date."
+          else
+            git commit -m "Update rendered PDF preview [skip ci]"
+            git push
+          fi
