@@ -8,107 +8,31 @@
   <style>
     :root {
       color-scheme: light dark;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: #ececec;
-      color: #1f1f1f;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      background:#ececec;color:#1f1f1f;
     }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: #ececec; }
-    body { overflow-x: hidden; }
-    .toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto auto;
-      align-items: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
-      background: rgba(250, 250, 250, .94);
-      border-bottom: 1px solid rgba(0, 0, 0, .10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#ececec}
+    body{overflow-x:hidden}
+    .toolbar{
+      position:sticky;top:0;z-index:20;display:grid;
+      grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;
+      min-height:56px;padding:8px max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left));
+      background:rgba(250,250,250,.94);border-bottom:1px solid rgba(0,0,0,.10);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)
     }
-    .title {
-      min-width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .page-count {
-      min-width: 58px;
-      text-align: center;
-      font-size: 13px;
-      font-variant-numeric: tabular-nums;
-      color: #666;
-    }
-    .download {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 36px;
-      padding: 0 11px;
-      border: 1px solid rgba(0, 0, 0, .14);
-      border-radius: 9px;
-      background: #fff;
-      color: #222;
-      text-decoration: none;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-    .viewer {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 18px 12px max(28px, env(safe-area-inset-bottom));
-    }
-    .page {
-      position: relative;
-      width: min(100%, 920px);
-      min-height: 120px;
-      aspect-ratio: 210 / 297;
-      margin: 0 auto 18px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, .14);
-    }
-    .page canvas { display: block; width: 100%; height: 100%; background: #fff; }
-    .status {
-      display: grid;
-      place-items: center;
-      min-height: 45vh;
-      padding: 28px 18px;
-      color: #666;
-      text-align: center;
-      line-height: 1.8;
-    }
-    .status[hidden] { display: none; }
-    .status a { color: inherit; }
-    .error-detail {
-      display: block;
-      max-width: 760px;
-      margin-top: 10px;
-      font-size: 11px;
-      opacity: .65;
-      word-break: break-all;
-    }
-    @media (max-width: 560px) {
-      .toolbar { gap: 7px; }
-      .title { font-size: 14px; }
-      .page-count { min-width: 48px; }
-      .download { padding: 0 9px; }
-      .viewer { padding: 10px 0 max(20px, env(safe-area-inset-bottom)); }
-      .page { width: 100%; margin-bottom: 10px; box-shadow: none; }
-    }
-    @media (prefers-color-scheme: dark) {
-      :root, html, body { background: #202124; color: #eee; }
-      .toolbar { background: rgba(37, 38, 40, .94); border-bottom-color: rgba(255,255,255,.12); }
-      .page-count, .status { color: #aaa; }
-      .download { border-color: rgba(255,255,255,.16); background: #303134; color: #eee; }
-    }
+    .title{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:15px;font-weight:600}
+    .page-count{min-width:56px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums;color:#666}
+    .download{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 11px;
+      border:1px solid rgba(0,0,0,.14);border-radius:9px;background:#fff;color:#222;text-decoration:none;font-size:13px;white-space:nowrap}
+    .viewer{width:100%;max-width:1000px;margin:0 auto;padding:18px 12px max(28px,env(safe-area-inset-bottom))}
+    .page{position:relative;width:min(100%,920px);min-height:120px;aspect-ratio:210/297;margin:0 auto 18px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.14)}
+    .page canvas{display:block;width:100%;height:100%;background:#fff}
+    .status{display:grid;place-items:center;min-height:45vh;padding:28px 18px;color:#666;text-align:center;line-height:1.8}
+    .status[hidden]{display:none}.status a{color:inherit}
+    .error-detail{display:block;max-width:760px;margin-top:10px;font-size:11px;opacity:.65;word-break:break-all}
+    @media(max-width:560px){.title{font-size:14px}.page-count{min-width:48px}.download{padding:0 9px}.viewer{padding:10px 0 max(20px,env(safe-area-inset-bottom))}.page{width:100%;margin-bottom:10px;box-shadow:none}}
+    @media(prefers-color-scheme:dark){:root,html,body{background:#202124;color:#eee}.toolbar{background:rgba(37,38,40,.94);border-bottom-color:rgba(255,255,255,.12)}.page-count,.status{color:#aaa}.download{border-color:rgba(255,255,255,.16);background:#303134;color:#eee}}
   </style>
 </head>
 <body>
@@ -117,200 +41,95 @@
     <div class="page-count" id="pageCount">— / —</div>
     <a class="download" href="/rules.pdf" download="群聊交流与管理规范.pdf">下载 PDF</a>
   </header>
-
   <main>
     <div class="status" id="status">正在加载文档…</div>
     <div class="viewer" id="viewer" aria-label="PDF 文档预览"></div>
   </main>
 
   <script>
-    (function () {
-      var PDF_URL = "/rules.pdf";
-      var viewer = document.getElementById("viewer");
-      var status = document.getElementById("status");
-      var pageCount = document.getElementById("pageCount");
-      var pdf = null;
-      var pageElements = {};
-      var rendering = {};
-      var rendered = {};
-      var visibility = {};
+  (function(){
+    var PDF_URL='/rules.pdf';
+    var WORKER_URL='/pdf-worker-legacy';
+    var viewer=document.getElementById('viewer');
+    var status=document.getElementById('status');
+    var pageCount=document.getElementById('pageCount');
+    var pdf=null,pageElements={},rendering={},rendered={},visibility={};
 
-      function showError(error) {
-        console.error(error);
-        var message = error && error.message ? error.message : String(error || "未知错误");
-        status.hidden = false;
-        status.innerHTML = "文档预览加载失败。你仍可以直接打开原始 PDF。" +
-          "<br><a href=\"" + PDF_URL + "\">打开原始 PDF</a>" +
-          "<span class=\"error-detail\">" + escapeHtml(message) + "</span>";
-      }
-
-      function escapeHtml(text) {
-        return String(text)
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/\"/g, "&quot;");
-      }
-
-      function loadScript(src) {
-        return new Promise(function (resolve, reject) {
-          var script = document.createElement("script");
-          script.src = src;
-          script.async = true;
-          script.onload = function () { resolve(); };
-          script.onerror = function () { reject(new Error("无法加载 " + src)); };
-          document.head.appendChild(script);
-        });
-      }
-
-      async function loadPdfJs() {
-        var moduleCandidates = [
-          {
-            lib: "https://cdn.bootcdn.net/ajax/libs/pdf.js/4.2.67/pdf.min.mjs",
-            worker: "https://cdn.bootcdn.net/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs"
-          },
-          {
-            lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs",
-            worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs"
+    function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+    function fail(e){
+      console.error(e);
+      var m=e&&e.message?e.message:String(e||'未知错误');
+      status.hidden=false;
+      status.innerHTML='文档预览加载失败。你仍可以直接打开原始 PDF。<br><a href="'+PDF_URL+'">打开原始 PDF</a><span class="error-detail">'+esc(m)+'</span>';
+    }
+    function loadScript(src){
+      return new Promise(function(resolve,reject){
+        var s=document.createElement('script');s.src=src;s.async=true;
+        s.onload=resolve;s.onerror=function(){reject(new Error('无法加载 '+src))};document.head.appendChild(s);
+      });
+    }
+    async function loadPdfJs(){
+      var sources=[
+        'https://cdn.bootcdn.net/ajax/libs/pdf.js/3.11.174/pdf.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js'
+      ];
+      for(var i=0;i<sources.length;i++){
+        try{
+          await loadScript(sources[i]);
+          if(window.pdfjsLib){
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc=WORKER_URL;
+            return window.pdfjsLib;
           }
-        ];
-
-        try {
-          var dynamicImport = new Function("url", "return import(url)");
-          for (var i = 0; i < moduleCandidates.length; i++) {
-            try {
-              var modern = await dynamicImport(moduleCandidates[i].lib);
-              modern.GlobalWorkerOptions.workerSrc = moduleCandidates[i].worker;
-              return modern;
-            } catch (e) {
-              console.warn("PDF.js module source failed", moduleCandidates[i].lib, e);
-            }
-          }
-        } catch (e) {
-          console.warn("Dynamic import is unavailable", e);
+        }catch(e){console.warn('PDF.js source failed',sources[i],e)}
+      }
+      throw new Error('所有 PDF.js 加载源均不可用');
+    }
+    function updateCurrentPage(){
+      if(!pdf)return;
+      var best=1,ratio=-1;
+      Object.keys(visibility).forEach(function(k){if(visibility[k]>ratio){best=Number(k);ratio=visibility[k]}});
+      pageCount.textContent=best+' / '+pdf.numPages;
+    }
+    async function renderPage(n){
+      if(!pdf||rendering[n]||rendered[n])return;
+      var holder=pageElements[n];if(!holder)return;rendering[n]=true;
+      try{
+        var page=await pdf.getPage(n);
+        var base=page.getViewport({scale:1});
+        var cssWidth=Math.max(1,holder.clientWidth||document.documentElement.clientWidth);
+        var cssScale=cssWidth/base.width;
+        var outputScale=Math.min(window.devicePixelRatio||1,1.6);
+        var viewport=page.getViewport({scale:cssScale*outputScale});
+        var cssHeight=Math.round(base.height*cssScale);
+        holder.style.aspectRatio=base.width+' / '+base.height;holder.style.height=cssHeight+'px';
+        var canvas=holder.querySelector('canvas');
+        canvas.width=Math.max(1,Math.floor(viewport.width));canvas.height=Math.max(1,Math.floor(viewport.height));
+        canvas.style.width=Math.round(base.width*cssScale)+'px';canvas.style.height=cssHeight+'px';
+        var ctx=canvas.getContext('2d',{alpha:false});
+        await page.render({canvasContext:ctx,viewport:viewport}).promise;
+        rendered[n]=true;if(n===1)status.hidden=true;
+      }finally{rendering[n]=false}
+    }
+    async function start(){
+      try{
+        var lib=await loadPdfJs();
+        pdf=await lib.getDocument({url:PDF_URL,isEvalSupported:false}).promise;
+        pageCount.textContent='1 / '+pdf.numPages;
+        for(var n=1;n<=pdf.numPages;n++){
+          var holder=document.createElement('section');holder.className='page';holder.dataset.page=String(n);holder.setAttribute('aria-label','第 '+n+' 页');
+          holder.appendChild(document.createElement('canvas'));viewer.appendChild(holder);pageElements[n]=holder;
         }
-
-        var legacyCandidates = [
-          {
-            lib: "https://cdn.bootcdn.net/ajax/libs/pdf.js/3.11.174/pdf.min.js",
-            worker: "https://cdn.bootcdn.net/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
-          },
-          {
-            lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js",
-            worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
-          }
-        ];
-
-        for (var j = 0; j < legacyCandidates.length; j++) {
-          try {
-            await loadScript(legacyCandidates[j].lib);
-            if (window.pdfjsLib) {
-              window.pdfjsLib.GlobalWorkerOptions.workerSrc = legacyCandidates[j].worker;
-              return window.pdfjsLib;
-            }
-          } catch (e) {
-            console.warn("PDF.js legacy source failed", legacyCandidates[j].lib, e);
-          }
+        if('IntersectionObserver'in window){
+          var lazy=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)renderPage(Number(e.target.dataset.page))})},{rootMargin:'1000px 0px',threshold:.01});
+          var current=new IntersectionObserver(function(entries){entries.forEach(function(e){var p=Number(e.target.dataset.page);if(e.isIntersecting)visibility[p]=e.intersectionRatio;else delete visibility[p]});updateCurrentPage()},{threshold:[.05,.2,.4,.6,.8]});
+          Object.keys(pageElements).forEach(function(k){lazy.observe(pageElements[k]);current.observe(pageElements[k])});renderPage(1);
+        }else{
+          for(var p=1;p<=pdf.numPages;p++)await renderPage(p);
         }
-
-        throw new Error("所有 PDF.js 加载源均不可用");
-      }
-
-      function updateCurrentPage() {
-        if (!pdf) return;
-        var bestPage = 1;
-        var bestRatio = -1;
-        Object.keys(visibility).forEach(function (key) {
-          if (visibility[key] > bestRatio) {
-            bestPage = Number(key);
-            bestRatio = visibility[key];
-          }
-        });
-        pageCount.textContent = bestPage + " / " + pdf.numPages;
-      }
-
-      async function renderPage(pageNumber) {
-        if (!pdf || rendering[pageNumber] || rendered[pageNumber]) return;
-        var holder = pageElements[pageNumber];
-        if (!holder) return;
-        rendering[pageNumber] = true;
-
-        try {
-          var page = await pdf.getPage(pageNumber);
-          var baseViewport = page.getViewport({ scale: 1 });
-          var cssWidth = Math.max(1, holder.clientWidth || document.documentElement.clientWidth);
-          var cssScale = cssWidth / baseViewport.width;
-          var outputScale = Math.min(window.devicePixelRatio || 1, 1.6);
-          var renderViewport = page.getViewport({ scale: cssScale * outputScale });
-          var cssHeight = Math.round(baseViewport.height * cssScale);
-
-          holder.style.aspectRatio = baseViewport.width + " / " + baseViewport.height;
-          holder.style.height = cssHeight + "px";
-
-          var canvas = holder.querySelector("canvas");
-          canvas.width = Math.max(1, Math.floor(renderViewport.width));
-          canvas.height = Math.max(1, Math.floor(renderViewport.height));
-          canvas.style.width = Math.round(baseViewport.width * cssScale) + "px";
-          canvas.style.height = cssHeight + "px";
-
-          var context = canvas.getContext("2d", { alpha: false });
-          await page.render({ canvasContext: context, viewport: renderViewport }).promise;
-          rendered[pageNumber] = true;
-          if (pageNumber === 1) status.hidden = true;
-        } finally {
-          rendering[pageNumber] = false;
-        }
-      }
-
-      async function start() {
-        try {
-          var pdfjsLib = await loadPdfJs();
-          var loadingTask = pdfjsLib.getDocument({ url: PDF_URL, isEvalSupported: false });
-          pdf = await loadingTask.promise;
-          pageCount.textContent = "1 / " + pdf.numPages;
-
-          for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-            var holder = document.createElement("section");
-            holder.className = "page";
-            holder.setAttribute("data-page", String(pageNumber));
-            holder.setAttribute("aria-label", "第 " + pageNumber + " 页");
-            var canvas = document.createElement("canvas");
-            holder.appendChild(canvas);
-            viewer.appendChild(holder);
-            pageElements[pageNumber] = holder;
-          }
-
-          if ("IntersectionObserver" in window) {
-            var lazyObserver = new IntersectionObserver(function (entries) {
-              entries.forEach(function (entry) {
-                if (entry.isIntersecting) renderPage(Number(entry.target.getAttribute("data-page")));
-              });
-            }, { rootMargin: "1000px 0px", threshold: 0.01 });
-
-            var pageObserver = new IntersectionObserver(function (entries) {
-              entries.forEach(function (entry) {
-                var p = Number(entry.target.getAttribute("data-page"));
-                if (entry.isIntersecting) visibility[p] = entry.intersectionRatio;
-                else delete visibility[p];
-              });
-              updateCurrentPage();
-            }, { threshold: [0.05, 0.2, 0.4, 0.6, 0.8] });
-
-            Object.keys(pageElements).forEach(function (key) {
-              lazyObserver.observe(pageElements[key]);
-              pageObserver.observe(pageElements[key]);
-            });
-            renderPage(1);
-          } else {
-            for (var p = 1; p <= pdf.numPages; p++) await renderPage(p);
-          }
-        } catch (error) {
-          showError(error);
-        }
-      }
-
-      start();
-    })();
+      }catch(e){fail(e)}
+    }
+    start();
+  })();
   </script>
 </body>
 </html>
